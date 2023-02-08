@@ -9,7 +9,6 @@ import Slider from "./Slider";
 
 // Package
 import * as htmlToImage from "html-to-image";
-// import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 const DEFAULT_OPTIONS_VALUE = [
   {

@@ -20,3 +20,14 @@ html {
   font-family: sans-serif;
   background-color: var(--bg-color);
 }
+
+body {
+  max-width: 80%;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  * {
+    --image-size: 600px;
+  }
+}
