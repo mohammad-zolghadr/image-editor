@@ -15,7 +15,8 @@
   flex-wrap: wrap;
 }
 
-.optionItem {
+.optionItem,
+.exportImage {
   flex: 1 1 130px;
   background-color: var(--bg-color-light);
   color: var(--text-color);
@@ -23,9 +24,17 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 0.7rem;
 }
 
-.optionItem:hover {
+.exportImage {
+  background-color: var(--active-color);
+  color: var(--bg-color-light);
+  font-weight: bold;
+}
+
+.optionItem:hover,
+.exportImage:hover {
   opacity: 0.5;
 }
 .activeButton {
@@ -38,5 +47,4 @@ img {
   height: var(--image-size);
   object-fit: cover;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
 }

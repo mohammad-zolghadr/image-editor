@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 
 // image & style
 import s from "./App.module.css";
@@ -6,6 +6,10 @@ import imgSource from "./assets/image/testImage.jpg";
 
 // Components
 import Slider from "./Slider";
+
+// Package
+import * as htmlToImage from "html-to-image";
+// import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 const DEFAULT_OPTIONS_VALUE = [
   {
@@ -83,6 +87,7 @@ const DEFAULT_OPTIONS_VALUE = [
 const App = () => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS_VALUE);
   const [selectedOption, setSelectedOption] = useState("Brightness");
+  const domEl = useRef(null);
   const optionClick = (e) => {
     setSelectedOption(e.target.name);
   };
@@ -106,9 +111,19 @@ const App = () => {
     return { filter: filters.join(" ") };
   };
 
+  const exportImage = async () => {
+    const dataUrl = await htmlToImage.toPng(domEl.current);
+
+    // download image
+    const link = document.createElement("a");
+    link.download = "html-to-img.png";
+    link.href = dataUrl;
+    link.click();
+  };
+
   return (
     <div className={s.container}>
-      <img src={imgSource} style={getImageFilter()} />
+      <img ref={domEl} src={imgSource} style={getImageFilter()} />
       <div className={s.optionContainer}>
         {options.map((item, index) => {
           return (
@@ -132,6 +147,9 @@ const App = () => {
           value={getSelectedOptionItem().value}
           onChangeSlider={changeSlider}
         />
+        <button className={s.exportImage} onClick={exportImage}>
+          Export Image
+        </button>
       </div>
     </div>
   );
