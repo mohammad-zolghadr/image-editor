@@ -99,9 +99,16 @@ const App = () => {
     });
   };
 
+  const getImageFilter = () => {
+    const filters = options.map((option) => {
+      return `${option.property}(${option.value}${option.unit})`;
+    });
+    return { filter: filters.join(" ") };
+  };
+
   return (
     <div className={s.container}>
-      <img src={imgSource} />
+      <img src={imgSource} style={getImageFilter()} />
       <div className={s.optionContainer}>
         {options.map((item, index) => {
           return (
