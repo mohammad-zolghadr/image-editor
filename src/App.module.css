@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -8,23 +7,30 @@
 }
 
 .optionContainer {
+  max-width: 130px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.optionContainer button {
+.optionItem {
+  flex: 1 1 130px;
   background-color: var(--bg-color-light);
   color: var(--text-color);
-  padding: 5px 15px;
+  padding: 7px 15px;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.optionContainer button:hover {
-  transform: translateY(-5px);
+.optionItem:hover {
+  opacity: 0.5;
+}
+.activeButton {
+  background-color: var(--primary-color);
+  color: var(--bg-color-light);
 }
 
 img {
