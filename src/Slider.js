@@ -1,9 +1,15 @@
 import React from "react";
 
-const Slider = () => {
+const Slider = ({ min, max, value, onChangeSlider }) => {
   return (
     <div>
-      <input type="range" />
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChangeSlider}
+      />
     </div>
   );
 };
