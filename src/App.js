@@ -88,6 +88,7 @@ const App = () => {
   const [selectedOption, setSelectedOption] = useState("Brightness");
   const [imageSize, setImageSize] = useState({ width: 500, height: 500 });
   const [imageFitType, setImageFitType] = useState("none");
+  const [imageFile, setImageFile] = useState();
   const domEl = useRef(null);
   const optionClick = (e) => {
     setSelectedOption(e.target.name);
@@ -122,6 +123,12 @@ const App = () => {
     setImageFitType(e.target.value);
   };
 
+  const chooseImageHandler = (e) => {
+    const objectUrl = URL.createObjectURL(e.target.files[0]);
+    console.log(objectUrl);
+    setImageFile(objectUrl);
+  };
+
   const exportImage = async () => {
     const dataUrl = await htmlToImage.toPng(domEl.current);
 
@@ -134,16 +141,7 @@ const App = () => {
 
   return (
     <div className={s.container}>
-      <img
-        ref={domEl}
-        src={imgSource}
-        style={{
-          filter: getImageFilter(),
-          width: imageSize.width,
-          height: imageSize.height,
-          objectFit: imageFitType,
-        }}
-      />
+      {/* Setup */}
       <div className={s.optionContainer}>
         {options.map((item, index) => {
           return (
@@ -204,6 +202,32 @@ const App = () => {
         <button className={s.exportImage} onClick={exportImage}>
           Export Image
         </button>
+      </div>
+      {/* ImageSelector and Preview */}
+      <div className={s.imageChooseContainer}>
+        {!imageFile ? (
+          <div>
+            <label htmlFor="img">Select image</label>
+            <input
+              type="file"
+              id="img"
+              name="img"
+              accept="image/*"
+              onChange={chooseImageHandler}
+            />
+          </div>
+        ) : (
+          <img
+            ref={domEl}
+            src={imageFile}
+            style={{
+              filter: getImageFilter(),
+              width: imageSize.width,
+              height: imageSize.height,
+              objectFit: imageFitType,
+            }}
+          />
+        )}
       </div>
     </div>
   );
