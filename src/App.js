@@ -125,8 +125,7 @@ const App = () => {
 
   const chooseImageHandler = (e) => {
     const objectUrl = URL.createObjectURL(e.target.files[0]);
-    console.log(objectUrl);
-    setImageFile(objectUrl);
+    setImageFile({ previewImage: objectUrl, file: e.target.files[0] });
   };
 
   const exportImage = async () => {
@@ -134,7 +133,7 @@ const App = () => {
 
     // download image
     const link = document.createElement("a");
-    link.download = "html-to-img.png";
+    link.download = `${imageFile.file.name} - Edited.png`;
     link.href = dataUrl;
     link.click();
   };
@@ -219,7 +218,7 @@ const App = () => {
         ) : (
           <img
             ref={domEl}
-            src={imageFile}
+            src={imageFile.previewImage}
             style={{
               filter: getImageFilter(),
               width: imageSize.width,
