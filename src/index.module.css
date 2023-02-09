@@ -13,7 +13,7 @@
   --bg-color: #17171e;
   --bg-color-light: #28282f;
 
-  --image-size: 300px;
+  --image-size: 500px;
 }
 
 html {
@@ -26,8 +26,8 @@ body {
   margin: auto;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   * {
     --image-size: 600px;
   }
-}
+} */

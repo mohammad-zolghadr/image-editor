@@ -45,5 +45,58 @@
 img {
   width: var(--image-size);
   height: var(--image-size);
-  object-fit: contain;
+}
+
+.imageSizeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.imageSizeContainer label {
+  font-size: 0.8rem;
+  color: var(--text-color);
+}
+
+.imageSizeContainer input {
+  width: 60px;
+  background-color: var(--bg-color-light);
+  color: var(--text-color);
+  padding: 7px 5px 7px 10px;
+  border-radius: 5px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.imageFitContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 5px;
+}
+.imageFitContainer div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.imageFitContainer span {
+  display: inline-block;
+  width: 100%;
+  color: var(--text-color);
+  font-size: 0.7rem;
 }

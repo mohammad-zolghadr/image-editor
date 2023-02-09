@@ -86,6 +86,8 @@ const DEFAULT_OPTIONS_VALUE = [
 const App = () => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS_VALUE);
   const [selectedOption, setSelectedOption] = useState("Brightness");
+  const [imageSize, setImageSize] = useState({ width: 500, height: 500 });
+  const [imageFitType, setImageFitType] = useState("none");
   const domEl = useRef(null);
   const optionClick = (e) => {
     setSelectedOption(e.target.name);
@@ -107,7 +109,17 @@ const App = () => {
     const filters = options.map((option) => {
       return `${option.property}(${option.value}${option.unit})`;
     });
-    return { filter: filters.join(" ") };
+    return filters.join(" ");
+  };
+
+  const imageSizeChanger = (e) => {
+    e.target.name === "width"
+      ? setImageSize({ ...imageSize, width: +e.target.value })
+      : setImageSize({ ...imageSize, height: +e.target.value });
+  };
+
+  const imageFitHandler = (e) => {
+    setImageFitType(e.target.value);
   };
 
   const exportImage = async () => {
@@ -122,7 +134,16 @@ const App = () => {
 
   return (
     <div className={s.container}>
-      <img ref={domEl} src={imgSource} style={getImageFilter()} />
+      <img
+        ref={domEl}
+        src={imgSource}
+        style={{
+          filter: getImageFilter(),
+          width: imageSize.width,
+          height: imageSize.height,
+          objectFit: imageFitType,
+        }}
+      />
       <div className={s.optionContainer}>
         {options.map((item, index) => {
           return (
@@ -146,6 +167,40 @@ const App = () => {
           value={getSelectedOptionItem().value}
           onChangeSlider={changeSlider}
         />
+        <div className={s.imageSizeContainer}>
+          <div>
+            <label>Width</label>
+            <input
+              type="number"
+              name="width"
+              value={imageSize.width}
+              onChange={imageSizeChanger}
+            />
+          </div>
+          <div>
+            <label>Height</label>
+            <input
+              type="number"
+              name="height"
+              value={imageSize.height}
+              onChange={imageSizeChanger}
+            />
+          </div>
+        </div>
+        <div className={s.imageFitContainer} onChange={imageFitHandler}>
+          <div>
+            <input type="radio" value="cover" name="gender" />
+            <span>Cover</span>
+          </div>
+          <div>
+            <input type="radio" value="contain" name="gender" />
+            <span>Contain</span>
+          </div>
+          <div>
+            <input type="radio" value="" name="gender" />
+            <span>None</span>
+          </div>
+        </div>
         <button className={s.exportImage} onClick={exportImage}>
           Export Image
         </button>
