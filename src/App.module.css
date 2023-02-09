@@ -16,7 +16,8 @@
 }
 
 .optionItem,
-.exportImage {
+.exportImage,
+.resetToDefault {
   flex: 1 1 130px;
   background-color: var(--bg-color-light);
   color: var(--text-color);
@@ -28,13 +29,20 @@
 }
 
 .exportImage {
-  background-color: var(--active-color);
+  background-color: var(--success-color);
   color: var(--bg-color-light);
-  font-weight: bold;
+}
+
+.resetToDefault {
+  background-color: transparent;
+  border: 1px solid var(--error-color);
+  color: var(--error-color);
 }
 
 .optionItem:hover,
-.exportImage:hover {
+.exportImage:hover,
+.resetToDefault:hover,
+.imagePreviewContainer span:hover {
   opacity: 0.5;
 }
 .activeButton {
@@ -49,6 +57,24 @@
   justify-content: center;
 }
 
+.imagePreviewContainer {
+  position: relative;
+}
+
+.imagePreviewContainer span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 4px 15px;
+  border-radius: 10px;
+  font-size: 0.6rem;
+  background-color: var(--error-color);
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.8;
+}
+
 input[type="file"] {
   display: none;
 }
@@ -60,7 +86,7 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--active-color);
+  border: 1px dashed var(--success-color);
   border-radius: 5px;
   padding: 10px 15px;
   color: var(--text-color);

@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 
-// image & style
+//Style
 import s from "./App.module.css";
-import imgSource from "./assets/image/testImage.jpg";
 
 // Components
 import Slider from "./Slider";
@@ -82,11 +81,12 @@ const DEFAULT_OPTIONS_VALUE = [
     },
   },
 ];
+const DEFAULT_IMAGE_SIZE = { width: 500, height: 500 };
 
 const App = () => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS_VALUE);
   const [selectedOption, setSelectedOption] = useState("Brightness");
-  const [imageSize, setImageSize] = useState({ width: 500, height: 500 });
+  const [imageSize, setImageSize] = useState(DEFAULT_IMAGE_SIZE);
   const [imageFitType, setImageFitType] = useState("none");
   const [imageFile, setImageFile] = useState();
   const domEl = useRef(null);
@@ -136,6 +136,11 @@ const App = () => {
     link.download = `${imageFile.file.name} - Edited.png`;
     link.href = dataUrl;
     link.click();
+  };
+
+  const resetToDefatul = (e) => {
+    setOptions(DEFAULT_OPTIONS_VALUE);
+    setImageSize(DEFAULT_IMAGE_SIZE);
   };
 
   return (
@@ -198,6 +203,9 @@ const App = () => {
             <span>None</span>
           </div>
         </div>
+        <button className={s.resetToDefault} onClick={resetToDefatul}>
+          Reset To Default
+        </button>
         <button className={s.exportImage} onClick={exportImage}>
           Export Image
         </button>
@@ -216,16 +224,25 @@ const App = () => {
             />
           </div>
         ) : (
-          <img
-            ref={domEl}
-            src={imageFile.previewImage}
-            style={{
-              filter: getImageFilter(),
-              width: imageSize.width,
-              height: imageSize.height,
-              objectFit: imageFitType,
-            }}
-          />
+          <div className={s.imagePreviewContainer}>
+            <span
+              onClick={() => {
+                setImageFile();
+              }}
+            >
+              Remove Picture
+            </span>
+            <img
+              ref={domEl}
+              src={imageFile.previewImage}
+              style={{
+                filter: getImageFilter(),
+                width: imageSize.width,
+                height: imageSize.height,
+                objectFit: imageFitType,
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
